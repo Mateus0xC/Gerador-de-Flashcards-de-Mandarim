@@ -108,3 +108,5 @@ Edite o arquivo **`config.json`** incluído no projeto:
 3. O programa vai gerar um arquivo chamado **`flashcards.txt`**.
 
 4. Arraste o `flashcards.txt` para dentro do Anki (na seção **Baralhos**).
+
+---
