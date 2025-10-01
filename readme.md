@@ -72,24 +72,29 @@ Edite o arquivo **`config.json`** incluído no projeto:
 {
   "GEMINI_API_KEY": "Sua chave de API aqui",
   "LANGUAGE": "Português (Brasil)",
-  "NOTE_TYPE_NAME": "Mandarin"
+  "NOTE_TYPE_NAME": "Mandarim",
+  "REMOVE_DUPLICATES": true
 }
 ```
 
 - **`GEMINI_API_KEY`** → cole aqui sua chave da API Gemini  
+  <details>
+  <summary>🔑 Como obter sua chave da API Gemini <b>(Clique para abrir)</b></summary>
+
+  1. Acesse o [console de API da Gemini](https://aistudio.google.com/) ou abra diretamente a seção de **API Keys**.  
+  2. Faça login com sua conta Google.  
+  3. Clique em **Criar chave de API** / **Create API Key**.  
+  4. Copie o valor gerado e cole em `GEMINI_API_KEY` dentro do `config.json`.  
+  > Obs: o caminho exato pode variar, mas procure por “API Keys” ou “Credentials” no console da Gemini.
+  </details>
 - **`LANGUAGE`** → o idioma de tradução desejado (ex.: `Português (Brasil)`)  
-- **`NOTE_TYPE_NAME`** → o nome do tipo de nota que será usado no Anki (Padrão: `Mandarin`)
+- **`NOTE_TYPE_NAME`** → o nome do tipo de nota que será usado no Anki  
+- **`REMOVE_DUPLICATES`** → Campos `strokes` e `chars` não terão caracteres repetidos
 
-<details>
-<summary>🔑 <b>Como obter sua chave da API Gemini</b> (clique para abrir)</summary>
+### ➕ Configurações opcionais:
 
-1. Acesse o [console de API da Gemini](https://aistudio.google.com/) ou abra diretamente a seção de **API Keys**.  
-2. Faça login com sua conta Google.  
-3. Clique em **Criar chave de API** / **Create API Key**.  
-4. Copie o valor gerado e cole em `GEMINI_API_KEY` dentro do `config.json`.  
-
-> Observação: o caminho exato pode variar, mas procure por “API Keys” ou “Credentials” no console da Gemini.
-</details>
+- **`OUTPUT_FOLDER`** → Caminho da pasta onde o arquivo `flashcards.txt` será salvo.
+  - Caso não informado, o arquivo será criado na mesma pasta onde o script foi executado.
 
 ---
 

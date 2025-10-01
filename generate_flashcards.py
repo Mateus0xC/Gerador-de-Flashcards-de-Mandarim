@@ -3,7 +3,7 @@
 from google import genai
 from google.genai.types import Schema
 from lxml import html
-import json, requests
+import json, requests, os
 
 with open("config.json", "r", encoding="utf-8") as f:
   CONFIG = json.load(f)
@@ -123,6 +123,11 @@ def get_audio(word):
 
 def get_stroke_images(characters):
   result = ''
+      
+  if CONFIG.get("REMOVE_DUPLICATE_CHARACTERS", False):
+    seen = set()
+    characters = [char for char in characters if not (char["character"] in seen or seen.add(char["character"]))]
+
   for char in characters:
     url = f'https://www.strokeorder.com/chinese/{char["character"]}'
     response = requests.get(url)
@@ -137,14 +142,19 @@ def get_stroke_images(characters):
   return result
 
 def get_character_meanings(characters):
+  if CONFIG.get("REMOVE_DUPLICATE_CHARACTERS", False):
+    seen = set()
+    characters = [char for char in characters if not (char["character"] in seen or seen.add(char["character"]))]
+
   if len(characters) == 1:
     return ""
   else:
     return "<br>".join(f'{char["character"]}: {char["meaning"]}' for char in characters)
 
+
 def generate_flashcard(word, info):
   fields = [
-    CONFIG.get("NOTE_TYPE_NAME"),              # Tipo de nota
+    CONFIG.get("NOTE_TYPE_NAME", "Mandarin"),  # Tipo de nota
     word,                                      # {{word}}
     info['word']['meaning'],                   # {{definition}}
     info['word']['pinyin'],                    # {{pinyin}}
@@ -157,10 +167,18 @@ def generate_flashcard(word, info):
 def write_flashcards_file(flashcards):
   content = "#separator:tab\n#html:true\n#notetype column:1\n"
   
+  if not flashcards:
+    return
+  
   for flashcard in flashcards:
     content += ''.join(flashcard)
-    
-  with open("flashcards.txt", "w", encoding="utf-8") as f:
+  
+  output_folder = CONFIG.get("OUTPUT_FOLDER", ".")
+  if output_folder != ".":
+    os.makedirs(output_folder, exist_ok=True)
+  output_file = os.path.join(output_folder, "flashcards.txt")
+  
+  with open(output_file, "w", encoding="utf-8") as f:
     f.write(content)
     
   print("✅ Flashcards salvos com sucesso!")

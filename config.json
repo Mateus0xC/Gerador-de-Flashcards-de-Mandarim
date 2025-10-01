@@ -1,5 +1,6 @@
 {
   "GEMINI_API_KEY": "Sua chave de API aqui",
   "LANGUAGE": "Português (Brasil)",
-  "NOTE_TYPE_NAME": "Mandarim"
+  "NOTE_TYPE_NAME": "Mandarim",
+  "REMOVE_DUPLICATE_CHARACTERS": true
 }
